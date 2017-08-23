@@ -1,0 +1,9 @@
+sushi: 555
+yakiniku: 88
+inherit: six.yml
+unagi:
+  ao: 323
+  aka: 333
+  murasaki:
+    - morning
+    - afternoon
