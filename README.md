@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/howyi/evi.svg?branch=master)](https://travis-ci.org/howyi/evi)
+[![Coverage Status](https://coveralls.io/repos/github/howyi/evi/badge.svg?branch=master)](https://coveralls.io/github/howyi/evi?branch=master)
 # evi
 Extended YAML&JSON parser
 
