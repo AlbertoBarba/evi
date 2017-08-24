@@ -18,7 +18,7 @@ class Evi
      */
     public static function parse(
         string $path,
-        bool $eval = false,
+        bool $eval = true,
         $callKey = '$ref',
         $inheritKey = '$ext'
     ): array {

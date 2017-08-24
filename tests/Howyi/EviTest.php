@@ -6,7 +6,7 @@ use Symfony\Component\Yaml\Yaml;
 
 class EviTest extends \PHPUnit\Framework\TestCase
 {
-    public function testParse()
+    public function testNormalParse()
     {
         $path = 'tests/files/five.yml';
         $array = Evi::parse($path, false, null, null);
