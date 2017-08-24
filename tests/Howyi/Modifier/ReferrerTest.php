@@ -4,22 +4,41 @@ namespace Howyi\Modifier;
 
 use Howyi\Evi;
 
-class ExpanderTest extends \PHPUnit\Framework\TestCase
+class ReferrerTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @dataProvider expandProvider
+     * @dataProvider referProvider
      */
-    public function testExpand(string $path, array $expectedArray, bool $expectedResult)
+    public function testRefer(string $path, array $expectedArray, bool $expectedResult)
     {
         $array = Evi::parse($path);
-        $result = Expander::expand($array, $path, 'call');
+        $result = Referrer::refer($array, $path, 'call', 'inherit');
         $this->assertSame($expectedArray, $array);
         $this->assertSame($expectedResult, $result);
     }
 
-    public function expandProvider()
+    public function referProvider()
     {
         return [
+            [
+                'tests/files/five.yml',
+                [
+                    'sushi' => 555,
+                    'yakiniku'  => 88,
+                    'unagi' => [
+                        'ao' => 323,
+                        'aka' => 333,
+                        'murasaki'  => [
+                            'morning',
+                            'afternoon',
+                            'midnight',
+                        ],
+                        'kiiro' => 999,
+                    ],
+                    'ramen' => 53,
+                ],
+                true
+            ],
             [
                 'tests/files/one_d/one.yml',
                 [
@@ -57,7 +76,7 @@ class ExpanderTest extends \PHPUnit\Framework\TestCase
     /**
      * @expectedException \ErrorException
      */
-    public function testExpandFailedWhenNotExist()
+    public function testReferFailedWhenNotExist()
     {
         $path = 'tests/files/nine.yml';
         $array = Evi::parse($path);
@@ -73,7 +92,7 @@ class ExpanderTest extends \PHPUnit\Framework\TestCase
             },
             E_WARNING
         );
-        $result = Expander::expand($array, $path, 'call');
+        $result = Referrer::refer($array, $path, 'call', 'inherit');
         restore_error_handler();
     }
 }

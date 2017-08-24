@@ -4,8 +4,7 @@ namespace Howyi;
 
 use Symfony\Component\Yaml\Yaml;
 use Howyi\Modifier\Evaluator;
-use Howyi\Modifier\Expander;
-use Howyi\Modifier\Extender;
+use Howyi\Modifier\Referrer;
 
 class Evi
 {
@@ -56,21 +55,12 @@ class Evi
                 $changed += Evaluator::evaluate($parsed);
             }
 
-            if (!is_null($callKey)) {
-                $changed += Expander::expand(
-                    $parsed,
-                    $path,
-                    $callKey
-                );
-            }
-
-            if (!is_null($inheritKey)) {
-                $changed += Extender::extend(
-                    $parsed,
-                    $path,
-                    $inheritKey
-                );
-            }
+            $changed += Referrer::refer(
+                $parsed,
+                $path,
+                $callKey,
+                $inheritKey
+            );
         } while ($changed !== 0);
 
         return $parsed;
