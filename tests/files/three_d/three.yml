@@ -3,4 +3,4 @@ mdd: 343
 ex:
   text: 'text'
   over_sushi: 34343
-  call: four_d/four.yml
+  $ref: four_d/four.yml

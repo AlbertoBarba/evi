@@ -1,6 +1,6 @@
 sushi: 555
 yakiniku: 88
-inherit: six.yml
+$ext: six.yml
 unagi:
   ao: 323
   aka: 333

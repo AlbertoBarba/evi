@@ -19,8 +19,8 @@ class Evi
     public static function parse(
         string $path,
         bool $eval = false,
-        string $callKey = null,
-        string $inheritKey = null
+        $callKey = '$ref',
+        $inheritKey = '$ext'
     ): array {
         $pathinfo = pathinfo($path);
         $contents = file_get_contents($path);

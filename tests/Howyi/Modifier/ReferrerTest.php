@@ -11,8 +11,8 @@ class ReferrerTest extends \PHPUnit\Framework\TestCase
      */
     public function testRefer(string $path, array $expectedArray, bool $expectedResult)
     {
-        $array = Evi::parse($path);
-        $result = Referrer::refer($array, $path, 'call', 'inherit');
+        $array = Evi::parse($path, false, null, null);
+        $result = Referrer::refer($array, $path, '$ref', '$ext');
         $this->assertSame($expectedArray, $array);
         $this->assertSame($expectedResult, $result);
     }
@@ -79,7 +79,7 @@ class ReferrerTest extends \PHPUnit\Framework\TestCase
     public function testReferFailedWhenNotExist()
     {
         $path = 'tests/files/nine.yml';
-        $array = Evi::parse($path);
+        $array = Evi::parse($path, false, null, null);
         set_error_handler(
             function ($errno, $errstr, $errfile, $errline) {
                 throw new \ErrorException(
@@ -92,7 +92,7 @@ class ReferrerTest extends \PHPUnit\Framework\TestCase
             },
             E_WARNING
         );
-        $result = Referrer::refer($array, $path, 'call', 'inherit');
+        $result = Referrer::refer($array, $path, '$ref', '$ext');
         restore_error_handler();
     }
 }

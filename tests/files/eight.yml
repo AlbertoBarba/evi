@@ -1,9 +1,9 @@
 one_hoge: 433
 two_foo:
-  call: two.yaml
+  $ref: two.yaml
 bar:
-  call: three_d/three.yml
-  inherit: six.yml
+  $ref: three_d/three.yml
+  $ext: six.yml
 e:
   array: php:range(0, 3)
   env: env:EVITEST1

@@ -43,7 +43,7 @@ bar: php:range(0, 3)
 ```yaml
 foo: 1
 bar:
-    call: ./callee.yml
+    $ref: ./callee.yml
 ```
 `callee.yaml`
 ```yaml
@@ -65,7 +65,7 @@ sushi: 22
 
 `self.yml`
 ```yaml
-inherit: ./parent.yml
+$ext: ./parent.yml
 foo: 1
 bar: 2
 ```

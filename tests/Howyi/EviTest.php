@@ -9,13 +9,13 @@ class EviTest extends \PHPUnit\Framework\TestCase
     public function testParse()
     {
         $path = 'tests/files/five.yml';
-        $array = Evi::parse($path);
+        $array = Evi::parse($path, false, null, null);
         $this->assertSame(Yaml::parse(file_get_contents($path)), $array);
         $path = 'tests/files/two.yaml';
-        $array = Evi::parse($path);
+        $array = Evi::parse($path, false, null, null);
         $this->assertSame(Yaml::parse(file_get_contents($path)), $array);
         $path = 'tests/files/one.json';
-        $array = Evi::parse($path);
+        $array = Evi::parse($path, false, null, null);
         $this->assertSame(json_decode(file_get_contents($path), true), $array);
     }
 
@@ -32,11 +32,9 @@ class EviTest extends \PHPUnit\Framework\TestCase
     public function testParseWhenFullOption()
     {
         $eval = true;
-        $callKey = 'call';
-        $inheritKey = 'inherit';
         $path = 'tests/files/eight.yml';
         putenv('EVITEST1=99');
-        $array = Evi::parse($path, $eval, $callKey, $inheritKey);
+        $array = Evi::parse($path, $eval);
         $expected = [
             'one_hoge' => 433,
             'two_foo'  => [

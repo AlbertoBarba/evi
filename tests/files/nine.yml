@@ -1,2 +1,2 @@
-inherit: barbar.yml
-call: hogehoge.yml
+$ext: barbar.yml
+$ref: hogehoge.yml
