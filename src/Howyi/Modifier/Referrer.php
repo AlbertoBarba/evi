@@ -25,33 +25,58 @@ class Referrer
             }
         }
 
-        if (array_key_exists($callKey, $array)) {
-            $calledPath = self::getPath($path, $array[$callKey]);
-            unset($array[$callKey]);
-            $called = Evi::parse($calledPath);
-            foreach ($called as &$value) {
-                if (is_array($value)) {
-                    self::refer($value, $calledPath, $callKey, $inheritKey);
-                }
+        self::referParse(
+            $array,
+            $path,
+            $isChanged,
+            $callKey,
+            $callKey,
+            $inheritKey,
+            function (&$array, $called) {
+                $array += $called;
             }
-            $array += $called;
-            $isChanged = true;
-        }
+        );
 
-        if (array_key_exists($inheritKey, $array)) {
-            $inheritedPath = self::getPath($path, $array[$inheritKey]);
-            unset($array[$inheritKey]);
-            $inherited = Evi::parse($inheritedPath);
-            foreach ($inherited as &$value) {
-                if (is_array($value)) {
-                    self::refer($value, $inheritedPath, $callKey, $inheritKey);
-                }
+        self::referParse(
+            $array,
+            $path,
+            $isChanged,
+            $inheritKey,
+            $callKey,
+            $inheritKey,
+            function (&$array, $inherited) {
+                self::merge($array, $inherited);
             }
-            self::merge($array, $inherited);
-            $isChanged = true;
-        }
+        );
 
         return $isChanged;
+    }
+
+    /**
+     * @param array    $array
+     * @param string   $parsed
+     */
+    private static function referParse(
+        array &$array,
+        string $path,
+        bool &$isChanged,
+        $key,
+        $callKey,
+        $inheritKey,
+        callable $combine
+    ) {
+        if (array_key_exists($key, $array)) {
+            $referredPath = self::getPath($path, $array[$key]);
+            unset($array[$key]);
+            $referred = Evi::parse($referredPath);
+            foreach ($referred as &$value) {
+                if (is_array($value)) {
+                    self::refer($value, $referredPath, $callKey, $inheritKey);
+                }
+            }
+            $combine($array, $referred);
+            $isChanged = true;
+        }
     }
 
     /**
