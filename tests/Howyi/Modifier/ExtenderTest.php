@@ -12,7 +12,7 @@ class ExtenderTest extends \PHPUnit\Framework\TestCase
     public function testExtend(string $path, array $expectedArray, bool $expectedResult)
     {
         $array = Evi::parse($path);
-        $result = Extender::extend($array, $path, ['inherit']);
+        $result = Extender::extend($array, $path, 'inherit');
         $this->assertSame($expectedArray, $array);
         $this->assertSame($expectedResult, $result);
     }
@@ -61,7 +61,7 @@ class ExtenderTest extends \PHPUnit\Framework\TestCase
             },
             E_WARNING
         );
-        $result = Extender::extend($array, $path, ['inherit']);
+        $result = Extender::extend($array, $path, 'inherit');
         restore_error_handler();
     }
 }

@@ -7,16 +7,16 @@ use Howyi\Evi;
 class Extender
 {
     /**
-     * @param array    $array
-     * @param string   $path
-     * @param string[] $extendKeys
+     * @param array  $array
+     * @param string $path
+     * @param string $inheritKey
      * @return bool
      */
-    public static function extend(array &$array, string $path, array $extendKeys): bool
+    public static function extend(array &$array, string $path, string $inheritKey): bool
     {
         $isChanged = false;
         foreach ($array as $key => $value) {
-            if (in_array($key, $extendKeys, true)) {
+            if ($inheritKey === $key) {
                 $path = dirname($path) . '/' . $value;
                 if (!file_exists($path)) {
                     $path = $value;
@@ -29,7 +29,7 @@ class Extender
         }
         foreach ($array as $key => &$value) {
             if (is_array($value)) {
-                if (self::extend($value, $path, $extendKeys)) {
+                if (self::extend($value, $path, $inheritKey)) {
                     $isChanged = true;
                 }
             }

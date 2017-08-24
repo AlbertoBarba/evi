@@ -10,18 +10,18 @@ use Howyi\Modifier\Extender;
 class Evi
 {
     /**
-     * @param string          $path
-     * @param bool            $eval
-     * @param string|string[] $referrerKeys
-     * @param string|string[] $extendKeys
+     * @param string      $path
+     * @param bool        $eval
+     * @param string|null $callKey
+     * @param string|null $inheritKey
      * @throws \ErrorException
      * @return array
      */
     public static function parse(
         string $path,
         bool $eval = false,
-        $referrerKeys = null,
-        $extendKeys = null
+        string $callKey = null,
+        string $inheritKey = null
     ): array {
         $pathinfo = pathinfo($path);
         $contents = file_get_contents($path);
@@ -56,19 +56,19 @@ class Evi
                 $changed += Evaluator::evaluate($parsed);
             }
 
-            if (!is_null($referrerKeys)) {
+            if (!is_null($callKey)) {
                 $changed += Expander::expand(
                     $parsed,
                     $path,
-                    is_array($referrerKeys) ? $referrerKeys : [$referrerKeys]
+                    $callKey
                 );
             }
 
-            if (!is_null($extendKeys)) {
+            if (!is_null($inheritKey)) {
                 $changed += Extender::extend(
                     $parsed,
                     $path,
-                    is_array($extendKeys) ? $extendKeys : [$extendKeys]
+                    $inheritKey
                 );
             }
         } while ($changed !== 0);

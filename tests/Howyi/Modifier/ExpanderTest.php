@@ -12,7 +12,7 @@ class ExpanderTest extends \PHPUnit\Framework\TestCase
     public function testExpand(string $path, array $expectedArray, bool $expectedResult)
     {
         $array = Evi::parse($path);
-        $result = Expander::expand($array, $path, ['call']);
+        $result = Expander::expand($array, $path, 'call');
         $this->assertSame($expectedArray, $array);
         $this->assertSame($expectedResult, $result);
     }
@@ -73,7 +73,7 @@ class ExpanderTest extends \PHPUnit\Framework\TestCase
             },
             E_WARNING
         );
-        $result = Expander::expand($array, $path, ['call']);
+        $result = Expander::expand($array, $path, 'call');
         restore_error_handler();
     }
 }
