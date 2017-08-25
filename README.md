@@ -3,82 +3,13 @@
 # evi
 Extended YAML&JSON parser
 
-# work
-## normal-parse
+## wiki: https://github.com/howyi/evi/wiki
 
-```yaml
-foo: 1
-bar: 2
-```
-*converted array*
+## Quickstart
+### Install
+`composer require howyi/evi`
+### Parse
 ```php
-[
-  'foo' => 1,
-  'bar' => 2,
-]
-```
-
-## eval
-
-```yaml
-foo: env:$OS
-bar: php:range(0, 3)
-```
-*converted array*
-```php
-[
-  'foo' => 'Windows_NT',
-  'bar' => [
-      0,
-      1,
-      2,
-      3,
-  ],
-]
-```
-
-## call
-
-`self.yml`
-```yaml
-foo: 1
-bar:
-    $ref: ./callee.yml
-```
-`callee.yaml`
-```yaml
-hoge: 99
-sushi: 22
-```
-*converted array*
-```php
-[
-  'foo' => 1,
-  'bar' => [
-      'hoge' => 99,
-      'sushi' => 22,
-  ],
-]
-```
-
-## inherit
-
-`self.yml`
-```yaml
-$ext: ./parent.yml
-foo: 1
-bar: 2
-```
-`parent.yaml`
-```yaml
-hoge: 99
-bar: 88
-```
-*converted array*
-```php
-[
-  'foo' => 1,
-  'bar' => 2,
-  'hoge' => 99,
-]
+$associativeArrays = Howyi\Evi::parse('foo/bar.yml');
+$associativeArrays = Howyi\Evi::parse('foo/bar.json');
 ```
