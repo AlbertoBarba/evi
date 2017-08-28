@@ -3,12 +3,12 @@
 # evi
 Extended YAML&JSON parser
 
-## wiki: https://github.com/howyi/evi/wiki
+```
+composer require howyi/evi
+```
+- wiki: https://github.com/howyi/evi/wiki
 
-## Quickstart
-### Install
-`composer require howyi/evi`
-### Parse
+## Parse
 ```php
 $associativeArrays = Howyi\Evi::parse('foo/bar.yml');
 $associativeArrays = Howyi\Evi::parse('foo/bar.json');
