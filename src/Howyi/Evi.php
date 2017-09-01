@@ -14,6 +14,7 @@ class Evi
      * @param string|null $callKey
      * @param string|null $inheritKey
      * @throws \ErrorException
+     * @throws InvalidFileException
      * @return array
      */
     public static function parse(
@@ -47,6 +48,15 @@ class Evi
             case 'json':
                 $parsed = json_decode($contents, true);
                 break;
+        }
+
+        if (!is_array($parsed)) {
+            throw new InvalidFileException(
+                sprintf(
+                    'File %s is invalid format.',
+                    $path
+                )
+            );
         }
 
         do {

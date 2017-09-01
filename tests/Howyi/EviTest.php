@@ -29,6 +29,14 @@ class EviTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(Yaml::parse(file_get_contents($path)), $array);
     }
 
+    /**
+     * @expectedException Howyi\InvalidFileException
+     */
+    public function testParseFailedWhenInvalid()
+    {
+        Evi::parse('tests/files/ten.yml');
+    }
+
     public function testParseWhenFullOption()
     {
         $eval = true;
