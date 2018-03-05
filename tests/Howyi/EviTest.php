@@ -20,7 +20,7 @@ class EviTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException \ErrorException
+     * @expectedException Symfony\Component\Yaml\Exception\ParseException
      */
     public function testParseFailed()
     {
